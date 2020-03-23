@@ -20,7 +20,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/form.html">회원가입</a></li>
-			        <li><a href="/list.html">회원목록</a></li>
+			        <li><a href="/list">회원목록</a></li>
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -39,16 +39,13 @@
 				</tr>
 			</thead>
 			<tbody>
+				{{#users}}
 				<tr>
-					<th scope="row">H-dragon</th>
-					<td>김한용</td>
-					<td>gksdyd4238@naver.com</td>
+					<th scope="row">{{userId}}</th>
+					<td>{{name}}</td>
+					<td>{{email}}</td>
 				</tr>
-				<tr>
-					<th scope="row">새마을금고중앙회</th>
-					<td>김한용 주임</td>
-					<td>hanyong.kim@kfcc.co.kr</td>
-				</tr>
+				{{/users}}
 			</tbody>
 		</table>
 	</div>
