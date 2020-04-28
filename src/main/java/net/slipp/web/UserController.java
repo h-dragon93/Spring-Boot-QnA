@@ -1,8 +1,5 @@
 package net.slipp.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +17,19 @@ import net.slipp.domain.UserRepository;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@GetMapping("/loginForm")
 	public String loginForm() {
 		return "/user/login";
 	}
-	
+
 	@PostMapping("/login")
 	public String login(String userId, String password, HttpSession session) {
 		User user = userRepository.findByUserId(userId);
-		
+
 		if (user == null) {
 			System.out.println("Login Failure");
 			return "redirect:/users/loginForm";
@@ -42,45 +39,65 @@ public class UserController {
 			return "redirect:/users/loginForm";
 		}
 		System.out.println("Login Success");
-		session.setAttribute("user", user);
+		session.setAttribute("sessionedUser", user);
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.removeAttribute("user");
+		session.removeAttribute("sessionedUser");
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("/form")
 	public String form() {
 		return "user/form";
 	}
-	
+
 	@PostMapping("")
 	public String create(User user) {
 		System.out.println("user : " + user);
 		userRepository.save(user);
 		return "redirect:/users";
 	}
-	
+
 	@GetMapping("")
 	public String list(Model model) {
 		model.addAttribute("users", userRepository.findAll());
 		return "user/list";
 	}
-	
+
 	@GetMapping("/{id}/form")
-	public String updateForm(@PathVariable Long id, Model model) {
+	public String updateForm(@PathVariable Long id, Model model, HttpSession session) {
+		Object tempUser = session.getAttribute("sessionedUser");
+		if (tempUser == null) {
+			return "redirect:/users/loginForm";
+		}
+
+		User sessionedUser = (User) tempUser;
+		if (!id.equals(sessionedUser.getId())) { 
+			throw new IllegalStateException("자신의 정보만 수정가능"); 
+		}
+		
 		User user = userRepository.findById(id).get();
 		model.addAttribute("user", user);
 		return "user/updateForm";
 	}
-	
+
 	@PutMapping("/{id}")
-	public String update(@PathVariable Long id, User newUser) {
+	public String update(@PathVariable Long id, User updatedUser, HttpSession session) {
+		Object tempUser = session.getAttribute("sessionedUser");
+		if (tempUser == null) {
+			return "redirect:/users/loginForm";
+		}
+
+		User sessionedUser = (User) tempUser;
+		if (!id.equals(sessionedUser.getId())) { 
+			throw new IllegalStateException("자신의 정보만 수정가능"); 
+		}
+		
 		User user = userRepository.findById(id).get();
-		user.update(newUser);
+		user.update(updatedUser);
 		userRepository.save(user);
 		return "redirect:/users";
 	}
