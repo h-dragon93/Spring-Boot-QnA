@@ -19,16 +19,17 @@
    <div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">
       <div class="panel panel-default qna-list">
           <ul class="list">
+          	  {{#questions}}
               <li>
                   <div class="wrap">
                       <div class="main">
                           <strong class="subject">
-                              <a href="./qna/show.html">KFCC 2020 6조 게시판 만드는중</a>
+                              <a href="./qna/show.html">{{title}}</a>
                           </strong>
                           <div class="auth-info">
                               <i class="icon-add-comment"></i>
                               <span class="time">2020-03-26 18:47</span>
-                              <a href="./user/profile.html" class="author">박기덕</a>
+                              <a href="./user/profile.html" class="author">{{writer}}</a>
                           </div>
                           <div class="reply" title="댓글">
                               <i class="icon-reply"></i>
@@ -37,24 +38,7 @@
                       </div>
                   </div>
               </li>
-              <li>
-                  <div class="wrap">
-                      <div class="main">
-                          <strong class="subject">
-                              <a href="./qna/show.html">퇴근하고 공부하기 너무힘들당</a>
-                          </strong>
-                          <div class="auth-info">
-                              <i class="icon-add-comment"></i>
-                              <span class="time">2020-03-26 18:47</span>
-                              <a href="./user/profile.html" class="author">김한용</a>
-                          </div>
-                          <div class="reply" title="댓글">
-                              <i class="icon-reply"></i>
-                              <span class="point">12</span>
-                          </div>
-                      </div>
-                  </div>
-              </li>
+              {{/questions}}
           </ul>
           <div class="row">
               <div class="col-md-3"></div>
