@@ -10,3 +10,4 @@ public class MyWebInitializer extends SpringBootServletInitializer {
 		return builder.sources(MySlippApplication.class);
 		}
 }
+

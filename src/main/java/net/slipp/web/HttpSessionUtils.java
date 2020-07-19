@@ -1,6 +1,7 @@
 package net.slipp.web;
 
 import javax.servlet.http.HttpSession;
+
 import net.slipp.domain.User;
 
 public class HttpSessionUtils {
