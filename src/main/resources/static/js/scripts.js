@@ -47,8 +47,8 @@ function deleteAnswer(e) {
 		type : 'delete',
 		url  : url,
 		dataType : 'json',
-		error : function(xhr, status) {
-			console.log("error");			
+		error : function(request, status) {
+			console.log("error");
 		},
 		success : function(data, status) {
 			console.log(data);

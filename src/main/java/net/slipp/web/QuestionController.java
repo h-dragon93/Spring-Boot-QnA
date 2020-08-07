@@ -1,5 +1,7 @@
 package net.slipp.web;
 
+import java.time.LocalDateTime;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.slipp.domain.Question;
 import net.slipp.domain.QuestionRepository;
@@ -32,13 +35,12 @@ public class QuestionController {
 	}
 	
 	@PostMapping("")
-	public String create(String title, String contents, HttpSession session) {
+	public String create(String title, String contents, HttpSession session, LocalDateTime createDate, LocalDateTime modifiedDate) {
 		if (!HttpSessionUtils.isLoginUser(session)) {
 			return "/users/loginForm";
-		}
-		
+		}		
 		User sessionUser = HttpSessionUtils.getUserFromSession(session);
-		Question newQuestion = new Question(sessionUser, title, contents);
+		Question newQuestion = new Question(sessionUser, title, contents, createDate, modifiedDate);
 		questionRepository.save(newQuestion);
 		return "redirect:/";
 	}

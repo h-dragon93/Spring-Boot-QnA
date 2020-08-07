@@ -14,10 +14,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-public class Question extends AbstractEntity {
+public class Question {
+	@Id
+	@GeneratedValue
+	@JsonProperty
+	private Long id;
+	
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
 	@JsonProperty
@@ -33,17 +41,21 @@ public class Question extends AbstractEntity {
 	@JsonProperty
 	private Integer countOfAnswer = 0;
 	
+	@CreatedDate
+	private LocalDateTime createDate;
+	
 	@OneToMany(mappedBy="question")
 	@OrderBy("id DESC")
 	private List<Answer> answers;
 	
 	public Question() {}
 	
-	public Question(User writer, String title, String contents) {
+	public Question(User writer, String title, String contents, LocalDateTime createDate, LocalDateTime modifiedDate) {
 		super();
 		this.writer = writer;
 		this.title = title;
 		this.contents = contents;
+		this.createDate = LocalDateTime.now();
 	}
 	
 	public void update(String title, String contents) {
@@ -61,5 +73,12 @@ public class Question extends AbstractEntity {
 	
 	public void deleteAnswer() {
 		this.countOfAnswer -= 1;
+	}
+	
+	public String getFormattedCreateDate() {
+		if (createDate == null) {
+			return "";
+		}
+		return createDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
 	}
 }

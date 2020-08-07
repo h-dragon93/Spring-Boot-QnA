@@ -46,7 +46,7 @@ public class Answer extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Answer [" + super.toString()+ ", writer=" + writer + ", contents=" + contents 				+ "]";
+		return "Answer [" + super.toString()+ ", writer=" + writer + ", contents=" + contents + "]";
 	}
 
 
