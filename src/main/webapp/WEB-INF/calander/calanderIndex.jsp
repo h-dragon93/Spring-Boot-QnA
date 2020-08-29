@@ -5,7 +5,7 @@
 
 <body>
 <div class="header">
-    <h1><a href='http://localhost:8080/calander'>H-dragon Calander</a></h1>
+    <h1><a href='http://localhost:8080/api'>H-dragon Calander</a></h1>
     <div><a href="https://google.com/">With Spring Boot</a></div>
 </div>
 
@@ -176,9 +176,8 @@
             },
 
         ]
-    });
+    });	
     dp.init();
-
     dp.events.load("/api/events");
 
 

@@ -24,28 +24,30 @@ import net.slipp.domain.EventRepository;
 @RequestMapping("")
 public class CalanderController {
 	
-	@GetMapping("/calander")
-	public String calander() {
-		return "calanderIndex";
-	}	
-	
-
     @Autowired
     EventRepository er;
-
-    @RequestMapping("/api")
-    @ResponseBody
-    String home() {
-        return "Welcome!";
-    }
+	
+	@GetMapping("/api")
+	public String calander() {
+		return "/calanderIndex";
+	}	
+	
+//    @RequestMapping("/")
+//    @ResponseBody
+//    String home() {
+//        return "Welcome!";
+//    }
 
     @GetMapping("/api/events")
+    @ResponseBody
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     Iterable<Event> events(@RequestParam("start") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime start, @RequestParam("end") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime end) {
-        return er.findBetween(start, end);
+        System.out.println("THIS");
+    	return er.findBetween(start, end);
     }
 
     @PostMapping("/api/events/create")
+    @ResponseBody
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Transactional
     Event createEvent(@RequestBody EventCreateParams params) {
@@ -60,6 +62,7 @@ public class CalanderController {
     }
 
     @PostMapping("/api/events/move")
+    @ResponseBody
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Transactional
     Event moveEvent(@RequestBody EventMoveParams params) {
@@ -73,6 +76,7 @@ public class CalanderController {
     }
 
     @PostMapping("/api/events/setColor")
+    @ResponseBody
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Transactional
     Event setColor(@RequestBody SetColorParams params) {
@@ -85,6 +89,7 @@ public class CalanderController {
     }
 
     @PostMapping("/api/events/delete")
+    @ResponseBody
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Transactional
     EventDeleteResponse deleteEvent(@RequestBody EventDeleteParams params) {
