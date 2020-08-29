@@ -18,12 +18,12 @@
 
             <label><input type="checkbox" id="weekends" checked="checked"> Show weekend</label>
             <span style="margin-left: 30px;">
-                Export as: <select id="format">
+                파일추출: <select id="format">
                     <option value="svg">SVG</option>
                     <option value="jpeg">JPEG</option>
                     <option value="png">PNG</option>
                 </select>
-                <button id="download">Download</button>
+                <button id="download">다운로드</button>
             </span>
         </div>
 
