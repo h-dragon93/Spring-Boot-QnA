@@ -67,6 +67,10 @@ public class Question {
 		return this.writer.equals(loginUser);
 	}
 	
+	public int getCountOfAnswer() {
+		return this.countOfAnswer;	
+	}
+	
 	public void addAnswer() {
 		this.countOfAnswer += 1;
 	}

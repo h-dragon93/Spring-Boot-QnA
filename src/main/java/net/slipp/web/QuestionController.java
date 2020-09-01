@@ -96,7 +96,12 @@ public class QuestionController {
 		if (!result.isValid()) {
 			model.addAttribute("errorMessage", result.getErrorMessage());			
 			return "/user/login";
-		}
+		}	
+		if(question.getCountOfAnswer() != 0) {
+			model.addAttribute("question", questionRepository.findById(id).get());
+			model.addAttribute("errorMessage", "댓글이 달린 게시물은 삭제 불가합니다.");	
+			return "/qna/show";
+		}	
 		questionRepository.deleteById(id);
 		return "redirect:/";
 	}
