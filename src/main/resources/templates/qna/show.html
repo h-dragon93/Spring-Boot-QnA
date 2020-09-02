@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="kr">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <head>
 	{{> /include/header}}
 </head>
@@ -58,33 +58,37 @@
                       <p class="qna-comment-count"><strong>{{countOfAnswer}}</strong>개의 의견</p>
                       <div class="qna-comment-slipp-articles">
 						{{#answers}}
-                          <article class="article" id="answer-1405">
+                          <article class="article">
                               <div class="article-header">
                                   <div class="article-header-thumb">
                                       <img src="https://mir-s3-cdn-cf.behance.net/projects/404/c52c0238210507.Y3JvcCw5NTgsNzQ5LDIyMCw0NQ.png" class="article-author-thumb" alt="">
                                   </div>
                                   <div class="article-header-text">
-                                      <a href="/users/1/자바지기" class="article-author-name">{{writer.userId}}</a>
-                                      <a href="#answer-1434" class="article-header-time" title="퍼머링크">
-                                         {{formattedCreateDate}}
-                                      </a>
+                                      <a href="#" class="article-author-name">{{writer.userId}}</a>
+                                      <div class="article-header-time">{{formattedCreateDate}}</div>
                                   </div>
                               </div>
-                              <div class="article-doc comment-doc">
+                              <div class="article-doc comment-doc {{id}}">
+                              	  <input type="hidden" class="hidden_contents" value={{contents}}>
+                              	  <input type="hidden" class="hidden_id" value={{id}}>                            	  
                                   <p>{{contents}}</p>
-                              </di v>
+                              </div>
                               <div class="article-util">
                                   <ul class="article-util-list">
                                       <li>
-                                          <a class="link-modify-article" href="/questions/{{question.id}}/answers/{{id}}/form">수정</a>
+										<button class="link-modify-article" onClick="editReply('{{id}}', '{{writer.userId}}', '{{contents}}')">수정</button>
+                                      <!-- 
+                                      	  <a class="link-modify-article" href="/api/questions/{{question.id}}/answers/{{id}}">삭제</a>                           
+										  href="/api/questions/{{question.id}}/answers/{{id}} -->
                                       </li>
                                       <li>
 										  <a class="link-delete-article" href="/api/questions/{{question.id}}/answers/{{id}}">삭제</a>
                                       </li>
                                   </ul>
                               </div>
+                            <div class="media text-muted pt-3" id="rid {{id}}"> </div>
                           </article>
-                          {{/answers}}
+                       {{/answers}}
                           <form class="answer-write" method="post" action="/api/questions/{{id}}/answers">
                               <div class="form-group" style="padding:14px;">
                                   <textarea class="form-control" placeholder="Update your status" name="contents"></textarea>
@@ -105,26 +109,27 @@
 	<article class="article">
 		<div class="article-header">
 			<div class="article-header-thumb">
-				<img src="https://thecastlespa.com/wp-content/uploads/2019/02/kakaotalk.png" class="article-author-thumb" alt="">
+				<img src="https://mir-s3-cdn-cf.behance.net/projects/404/c52c0238210507.Y3JvcCw5NTgsNzQ5LDIyMCw0NQ.png" class="article-author-thumb" alt="">
 			</div>
 			<div class="article-header-text">
 				<a href="#" class="article-author-name">{0}</a>
 				<div class="article-header-time">{1}</div>
 			</div>
 		</div>
-		<div class="article-doc comment-doc">
-			{2}
+		<div class="article-doc comment-doc {{4}}">
+			<p>{2}</p>
 		</div>
 		<div class="article-util">
-		<ul class="article-util-list">
+		  <ul class="article-util-list">
 			<li>
-				<a class="link-modify-article" href="/api/qna/updateAnswer/{3}">수정</a>
-			</li>
+				<button class="link-modify-article" onClick="editReply({{4}}, {{0}}, {{2}})">수정</button>
+			</li>		
 			<li>
 				<a class="link-delete-article" href="/api/questions/{3}/answers/{4}">삭제</a>
 			</li>
-		</ul>
-		</div>
+		  </ul>
+	    </div>
+      <div class="media text-muted pt-3" id="rid {{4}}"> </div>
 	</article>
 </script>
 

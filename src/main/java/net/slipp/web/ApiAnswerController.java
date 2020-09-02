@@ -47,10 +47,8 @@ public class ApiAnswerController {
 		User loginUser = HttpSessionUtils.getUserFromSession(session);
 		if (!answer.isSameWriter(loginUser)) {
 			return Result.fail("Not your Post");
-		}
-		
-		answerRepository.deleteById(id);
-		
+		}	
+		answerRepository.deleteById(id);		
 		Question question = questionRepository.findById(questionId).get();
 		question.deleteAnswer();
 		questionRepository.save(question);
