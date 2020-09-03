@@ -1,32 +1,35 @@
 function editReply(rid, reg_id, content) {
-
-	console.log("articleId : " + rid);
-	console.log("writerId : " + reg_id);
-	console.log("articleContents : " + content);
 		var htmls = "";
 		htmls += '<div class="media text-muted pt-3" id="rid ' + rid + '">';
-//	  htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
-//	  htmls += '<title>Placeholder</title>';
-//    htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
-//	  htmls += '<text x="50%" fill="#007bff" dy=".3em">32x32</text>';
-//	  htmls += '</svg>';
-		htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
 		htmls += '<span class="d-block">';
-		htmls += '<strong class="text-gray-dark">' + reg_id + '</strong>';
+		htmls += '<strong class="text-gray-dark" style="font-size:18px;">' + reg_id + '</strong>';
 		htmls += '<span style="padding-left: 7px; font-size: 9pt">';
-		htmls += '<a href="javascript:void(0)" onclick="fn_updateReply(' + rid + ', \'' + reg_id + '\')" style="padding-right:5px">저장</a>';
-		htmls += '<a href="javascript:void(0)" onClick="showReplyList()">취소<a>';
 		htmls += '</span>';
-		htmls += '</span>';		
-		htmls += '<textarea name="editContent" id="editContent" class="form-control" rows="3">';
+		htmls += '</span>';	
+		htmls += '<form class="reply-write" method="post" action="/api/questions/' + rid + '/answers"> ';
+		htmls += '<div class="form-group" style="padding:14px;">';
+     	htmls += '<textarea name="editContent" id="editContent" class="form-control" rows="3">';
 		htmls += content;
 		htmls += '</textarea>';
-		htmls += '</p>';
+		htmls += '</div>';
+		htmls += '<input type="button" class="btn btn-primary pull-right" value="취소하기" style="margin-left:10px; margin-top:6px;" />' ;
+		htmls += '<input type="submit" class="btn btn-primary pull-right" value="수정하기" style="margin-top:6px;"/>' ;
+		htmls += '<div class="clearfix" />';
+		htmls += '</form>';
 		htmls += '</div>';
 		var RID = document.getElementById('rid ' + rid);
 		RID.insertAdjacentHTML('afterend', htmls);
-		$('#rid ' + rid + ' #editContent').focus();
+		$('#editContent').focus();
 }
+
+$(".reply-write input[type=submit]").click(editReplySave);
+
+function editReplySave(e) {
+	e.preventDefault();
+	console.log("editReplySave clicked");
+}
+
+//$(".reply-write input[type=button]").click(cancleEdit);
 
 $(".answer-write input[type=submit]").click(addAnswer);
 		
