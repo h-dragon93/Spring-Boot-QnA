@@ -1,4 +1,6 @@
 function editReply(rid, reg_id, content) {
+		var para = document.location.href.split("/"); 
+		var questionId = para[4]
 		var htmls = "";
 		htmls += '<div class="media text-muted pt-3" id="rid ' + rid + '">';
 		htmls += '<span class="d-block">';
@@ -6,15 +8,15 @@ function editReply(rid, reg_id, content) {
 		htmls += '<span style="padding-left: 7px; font-size: 9pt">';
 		htmls += '</span>';
 		htmls += '</span>';	
-		htmls += '<form class="reply-write" method="post" action="/api/questions/' + rid + '/answers"> ';
-		htmls += '<div class="form-group" style="padding:14px;">';
-     	htmls += '<textarea name="editContent" id="editContent" class="form-control" rows="3">';
-		htmls += content;
-		htmls += '</textarea>';
-		htmls += '</div>';
-		htmls += '<input type="button" class="btn btn-primary pull-right" value="취소하기" style="margin-left:10px; margin-top:6px;" />' ;
-		htmls += '<input type="submit" class="btn btn-primary pull-right" value="수정하기" style="margin-top:6px;"/>' ;
-		htmls += '<div class="clearfix" />';
+		htmls += '<form class="reply-write" method="post" action="/api/questions/' + questionId + '/answers/edit/' + rid + '"> ';
+		htmls += 	'<div class="form-group" style="padding:14px;">';
+     	htmls += 		'<textarea name="contents" id="editContent" class="form-control" rows="3">';
+		htmls += 			content;
+		htmls += 		'</textarea>';
+		htmls += 	'</div>';
+		htmls += 	'<input type="button" class="btn btn-primary pull-right" value="취소하기" style="margin-left:10px; margin-top:6px;" />' ;
+		htmls += 	'<input type="submit" class="form-control" value="수정하기" style="margin-top:6px;"/>' ;
+		htmls +=   '<div class="clearfix" />';
 		htmls += '</form>';
 		htmls += '</div>';
 		var RID = document.getElementById('rid ' + rid);
@@ -27,6 +29,26 @@ $(".reply-write input[type=submit]").click(editReplySave);
 function editReplySave(e) {
 	e.preventDefault();
 	console.log("editReplySave clicked");
+	
+	var queryStringReply = $(".reply-write").serialize();
+	console.log("query : " + queryStringReply);
+	
+	var urlReply = $(".reply-write").attr("action");
+	console.log("url : " + urlReply);
+	
+//	$.ajax({
+//		type : 'post',
+//		url : urlReply,
+//		data : queryStringReply,
+//		dataType : 'json' ,
+//		error : onReplyError , 
+//		success : onReplySuccess
+//	});
+}
+
+function onReplySuccess(data, status) {
+	console.log(data, status);
+	window.location.reload();
 }
 
 //$(".reply-write input[type=button]").click(cancleEdit);

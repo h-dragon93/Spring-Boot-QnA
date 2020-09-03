@@ -38,11 +38,14 @@ public class Answer extends AbstractEntity {
 		this.contents = contents;
 	}
 
+	public void update(String contents) {
+		this.contents = contents;
+	}
+	
 	public boolean isSameWriter(User loginUser) {
 		// TODO Auto-generated method stub
 		return loginUser.equals(this.writer);
 	}
-
 
 	@Override
 	public String toString() {
