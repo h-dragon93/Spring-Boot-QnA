@@ -25,7 +25,12 @@
                         <li><a href="https://google.com" target="_blank">Google</a></li>
                     </ul>
                 </li>
+                {{^sessionedUser}}
+	            <li><a href="/users/loginForm"><i class="glyphicon glyphicon-user"></i></a></li>
+                {{/sessionedUser}}
+                {{#sessionedUser}}
                 <li><a href="/users"><i class="glyphicon glyphicon-user"></i></a></li>
+                {{/sessionedUser}}
             </ul>
         </div>
     </div>
@@ -43,7 +48,12 @@
         <div class="collapse navbar-collapse" id="navbar-collapse2">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/">게시물</a></li>
+                {{^sessionedUser}}
+	            <li><a href="/users/loginForm" role="button">일정관리</a></li>
+                {{/sessionedUser}}
+                {{#sessionedUser}}
                 <li><a href="/api" role="button">일정관리</a></li>
+                {{/sessionedUser}}
                 {{^sessionedUser}}
 	                <li><a href="/users/loginForm" role="button">로그인</a></li>
 	                <li><a href="/users/form" role="button">회원가입</a></li>
@@ -56,3 +66,4 @@
         </div>
     </div>
 </div>
+            

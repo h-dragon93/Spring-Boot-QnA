@@ -24,7 +24,7 @@ public class Question {
 	@Id
 	@GeneratedValue
 	@JsonProperty
-	private Long id;
+	private Long qid;
 	
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))

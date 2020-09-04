@@ -4,18 +4,18 @@ function editReply(rid, reg_id, content) {
 		var htmls = "";
 		htmls += '<div class="media text-muted pt-3" id="rid ' + rid + '">';
 		htmls += '<span class="d-block">';
-		htmls += '<strong class="text-gray-dark" style="font-size:18px;">' + reg_id + '</strong>';
+		htmls += '<strong class="text-gray-dark" style="font-size:18px;"> ID &nbsp' + reg_id + '</strong>';
 		htmls += '<span style="padding-left: 7px; font-size: 9pt">';
 		htmls += '</span>';
 		htmls += '</span>';	
-		htmls += '<form class="reply-write" method="post" action="/api/questions/' + questionId + '/answers/edit/' + rid + '"> ';
-		htmls += 	'<div class="form-group" style="padding:14px;">';
-     	htmls += 		'<textarea name="contents" id="editContent" class="form-control" rows="3">';
+		htmls += '<form class="reply-write" method="post" action="/api/questions/' + questionId + '/answers/edit/' + rid + ' "> ';
+		htmls += 	'<div class="form-group" style="padding:14px; margin-bottom:0px; ">';
+     	htmls += 		'<textarea name="contents" id="editContent" class="form-control" rows="3" style="margin-right:10px">';
 		htmls += 			content;
 		htmls += 		'</textarea>';
 		htmls += 	'</div>';
-		htmls += 	'<input type="button" class="btn btn-primary pull-right" value="취소하기" style="margin-left:10px; margin-top:6px;" />' ;
-		htmls += 	'<input type="submit" class="form-control" value="수정하기" style="margin-top:6px;"/>' ;
+		//htmls += 	'<input type="button" class="btn btn-primary pull-right" value="취소하기" style="margin-left:10px; margin-top:6px;" />' ;
+		htmls += 	'<input type="submit" class="form-control btn btn-primary pull-right" value="수정하기" style="margin-top:6px; width:85px; float:right;"/>' ;
 		htmls +=   '<div class="clearfix" />';
 		htmls += '</form>';
 		htmls += '</div>';
@@ -108,6 +108,7 @@ function deleteAnswer(e) {
 			console.log(data);
 			if(data.valid) {
 				deleteBtn.closest("article").remove();
+				window.location.reload();
 			} else {
 				alert(data.errorMessage);
 			}
